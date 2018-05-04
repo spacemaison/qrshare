@@ -1,0 +1,19 @@
+qrs-code {
+  --width: 64px;
+  --height: 64px;
+
+  transition-property: width, height;
+  transition-duration: 0.3s, 0.5s;
+
+  width: var(--width);
+  height: var(--height);
+
+  background: grey;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+qrs-code[state="ACTIVE"] {
+  --width: 80vw;
+  --height: 80vh;
+}

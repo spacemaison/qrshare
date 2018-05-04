@@ -1,0 +1,48 @@
+qrs-rooms {
+  display: flex;
+  flex-direction: column;
+}
+
+qrs-rooms .item {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+qrs-rooms .item qrs-code {
+  --translateY: 0;
+  --translateX: 0;
+
+  transition: transform 0.3s, width 0.6s, height 0.6s;
+  transform: translateY(var(--translateY)) translateX(var(--translateX));
+}
+
+qrs-rooms .item {
+  display: flex;
+}
+
+qrs-rooms .item header {
+  --translateX: 0;
+
+  flex: 1;
+  flex-direction: column;
+  padding: 8px;
+  padding-bottom: 4px;
+  transition: transform 0.5s;
+  transform: translateX(var(--translateX));
+}
+
+qrs-rooms .item h1,
+qrs-rooms .item h2 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin: 0;
+}
+
+qrs-rooms .item h1 {
+  font-size: 20px;
+}
+
+qrs-rooms .item h2 {
+  font-weight: 100;
+  font-size: 16px;
+  text-align: end;
+}

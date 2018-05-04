@@ -1,0 +1,15 @@
+{
+  "name": "qrshare",
+  "version": "0.0.1",
+  "description": "QRShare",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jesse Tuchsen",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.1.0",
+    "lit-html": "^0.9.0"
+  }
+}
