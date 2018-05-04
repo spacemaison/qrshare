@@ -37,8 +37,12 @@ export class State {
       cancelable: true,
       detail
     });
-    this.dispatchEvent(setEvent);
     this.onSetState && this.onSetState(setEvent);
+    if (setEvent.defaultPrevented) {
+      return;
+    }
+
+    this.dispatchEvent(setEvent);
 
     if (setEvent.defaultPrevented) {
       return;
@@ -51,11 +55,15 @@ export class State {
     // Dispatch change event
     let changeEvent = new CustomEvent(STATE_EVENTS.CHANGE, {
       bubbles: true,
+      cancelable: true,
       detail
     });
 
-    this.dispatchEvent(changeEvent);
     this.onChangeState && this.onChangeState(changeEvent);
+    if (changeEvent.defaultPrevented) {
+      return;
+    }
+    this.dispatchEvent(changeEvent);
   }
 
   get state() {

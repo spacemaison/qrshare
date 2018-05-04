@@ -25,7 +25,9 @@ export class QRSRooms extends HTMLElement {
   }
 
   onSetState(event) {
-    switch (event.target.tagName.toLowerCase()) {
+    const { target } = event;
+
+    switch (target && target.tagName.toLowerCase()) {
       case "qrs-code":
         return this.onSetQRSCodeState(event);
     }
@@ -60,8 +62,8 @@ export class QRSRooms extends HTMLElement {
       </ul>
 
       <div class="button-box">
-        <button>Join</button>
-        <button>Add</button>
+        <qrs-button>Join</qrs-button>
+        <qrs-button action="add">Add</qrs-button>
       </div>
     `;
   }

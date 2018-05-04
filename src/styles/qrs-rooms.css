@@ -11,7 +11,7 @@ qrs-rooms .item qrs-code {
   --translateY: 0;
   --translateX: 0;
 
-  transition: transform 0.3s, width 0.6s, height 0.6s;
+  transition: transform 0.5s, width 0.6s, height 0.6s;
   transform: translateY(var(--translateY)) translateX(var(--translateX));
 }
 
@@ -26,7 +26,7 @@ qrs-rooms .item header {
   flex-direction: column;
   padding: 8px;
   padding-bottom: 4px;
-  transition: transform 0.5s;
+  transition: transform 0.3s;
   transform: translateX(var(--translateX));
 }
 
@@ -45,4 +45,13 @@ qrs-rooms .item h2 {
   font-weight: 100;
   font-size: 16px;
   text-align: end;
+}
+
+qrs-rooms .button-box {
+  display: flex;
+  flex-direction: row;
+}
+
+qrs-rooms .button-box > button {
+  background: white;
 }

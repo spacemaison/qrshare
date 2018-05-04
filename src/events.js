@@ -8,8 +8,8 @@ export function registerDOMEvents(updateState, document = window.document) {
   document.body.addEventListener(STATE_EVENTS.CHANGE, event => {
     const { action } = event.detail || {};
 
-    if (!action) return;
-    if (ACTIONS.hasOwnProperty(action)) {
+    if (!action || event.defaultPrevented) return;
+    if (!ACTIONS.hasOwnProperty(action)) {
       console.warn(`Undeclared action "${action}" event fired`);
       return;
     }
