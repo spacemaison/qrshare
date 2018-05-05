@@ -40,13 +40,13 @@ export class QRSRooms extends HTMLElement {
 
     switch (state) {
       case STATES.ACTIVE: {
-        document.body.style.setProperty("overflow", "hidden");
+        this.style.setProperty("overflow", "hidden");
         this[_topOffset] = target.getBoundingClientRect().top;
         this.state = EXPLODED;
         break;
       }
       default: {
-        document.body.style.removeProperty("overflow");
+        this.style.removeProperty("overflow");
         this[_topOffset] = 0;
         this.state = NORMAL;
       }
@@ -55,20 +55,13 @@ export class QRSRooms extends HTMLElement {
 
   render(html) {
     return html`
-      ${getState("rooms").length ? null : this.renderNoRooms(html)}
+      <ul>${getStreamingState("rooms", this.renderRoomItem)}</ul>
 
-      <ul>
-        ${getStreamingState("rooms", this.renderRoomItem)}
-      </ul>
-
-      <div class="button-box">
-        <qrs-button>Join</qrs-button>
-        <qrs-button action="add">Add</qrs-button>
-      </div>
+      ${this.renderNoRooms(html)}
     `;
   }
 
-  renderRoomItem(html, { name, participants, qrcode }, position) {
+  renderRoomItem(html, { name, participants, id }, position) {
     const selectedPosition = +this[_selectedPosition];
     const relativePosition = QRSRooms.getRelativePosition(
       position,
@@ -90,8 +83,9 @@ export class QRSRooms extends HTMLElement {
     return html`
       <li class="item">
         <qrs-code
+          action="expand_qrs_code"
           style="${codeStyle}"
-          code="${qrcode}"
+          data-id="${id}"
           data-position="${position}">
         </qrs-code>
 
@@ -107,7 +101,7 @@ export class QRSRooms extends HTMLElement {
     return html`
       <div class="intro">
         <h1>
-          Welcome to QR Share!
+          Welcome to QR Share
         </h1>
 
         <p>

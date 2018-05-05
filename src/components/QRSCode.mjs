@@ -10,6 +10,7 @@ export class QRSCode extends HTMLElement {
 
   constructor() {
     super(...arguments);
+    this.setAttribute("touch-action", "auto");
     this.onPointerDown = this.onPointerDown.bind(this);
     this.addEventListener("pointerdown", this.onPointerDown);
     // this.update(true);
@@ -21,7 +22,12 @@ export class QRSCode extends HTMLElement {
   }
 
   render(html) {
+    const shadowStyle = `
+      --opacity: ${this.state === ACTIVE ? 1 : 0}
+    `;
+
     return html`
+      <div class="shadow" style="${shadowStyle}"></div>
     `;
   }
 }

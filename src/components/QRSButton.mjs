@@ -33,6 +33,9 @@ export class QRSButton extends HTMLElement {
 
   onPress() {
     this.state = PRESSED;
+    setTimeout(() => {
+      this.setAttribute("state", UP);
+    }, 0);
   }
 
   render(html) {

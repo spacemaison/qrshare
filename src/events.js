@@ -9,7 +9,7 @@ export function registerDOMEvents(updateState, document = window.document) {
     const { action } = event.detail || {};
 
     if (!action || event.defaultPrevented) return;
-    if (!ACTIONS.hasOwnProperty(action)) {
+    if (!ACTIONS.hasOwnProperty(action.toUpperCase())) {
       console.warn(`Undeclared action "${action}" event fired`);
       return;
     }
@@ -18,7 +18,14 @@ export function registerDOMEvents(updateState, document = window.document) {
       lastElement = event.target;
       lastAction = action;
 
-      return updateState(ACTIONS[action], event.detail);
+      const allowRepeat = updateState(
+        ACTIONS[action.toUpperCase()],
+        event.detail
+      );
+
+      if (allowRepeat) {
+        lastAction = null;
+      }
     }
   });
 }

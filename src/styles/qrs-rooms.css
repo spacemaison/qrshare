@@ -1,6 +1,32 @@
 qrs-rooms {
   display: flex;
   flex-direction: column;
+  flex: 1;
+}
+
+qrs-rooms .intro {
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+qrs-rooms .intro > h1 {
+  font-family: "Josefin Sans", sans-serif;
+  padding: 64px;
+  padding-top: 0;
+}
+
+qrs-rooms .intro > p {
+  max-width: 300px;
+}
+
+qrs-rooms ul + .intro {
+  display: none;
+}
+
+qrs-rooms ul:empty + .intro {
+  display: flex;
 }
 
 qrs-rooms .item {
@@ -45,13 +71,4 @@ qrs-rooms .item h2 {
   font-weight: 100;
   font-size: 16px;
   text-align: end;
-}
-
-qrs-rooms .button-box {
-  display: flex;
-  flex-direction: row;
-}
-
-qrs-rooms .button-box > button {
-  background: white;
 }

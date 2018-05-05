@@ -1,4 +1,5 @@
 @import url("./qrs-button.css");
+@import url("./qrs-crud-overlay.css");
 @import url("./qrs-rooms.css");
 @import url("./qrs-code.css");
 
@@ -11,8 +12,23 @@
   padding: 0;
   text-decoration: none;
   user-select: none;
+  transition-timing-function: ease-in-out;
 }
 
 body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+qrs-rooms {
+  overflow: scroll;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }

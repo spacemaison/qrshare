@@ -7,15 +7,6 @@ let state = {
   rooms: [
     new Room({ name: "Foo", participants: ["a"] }),
     new Room({ name: "Bar" }),
-    new Room({ name: "Baz" }),
-    new Room({ name: "Foo", participants: ["a"] }),
-    new Room({ name: "Bar" }),
-    new Room({ name: "Baz" }),
-    new Room({ name: "Foo", participants: ["a"] }),
-    new Room({ name: "Bar" }),
-    new Room({ name: "Baz" }),
-    new Room({ name: "Foo", participants: ["a"] }),
-    new Room({ name: "Bar" }),
     new Room({ name: "Baz" })
   ]
 };
@@ -23,6 +14,34 @@ let state = {
 const handlers = {
   [ACTIONS.INITIAL](error) {
     transitions.onInitial();
+  },
+
+  [ACTIONS.ADD_ROOM]() {
+    const currentID =
+      state.rooms
+        .filter(room => room.name.startsWith("Room #"))
+        .map(room => +room.name.substr(6))
+        .filter(number => !isNaN(number) && number >= 1)
+        .sort()
+        .find((number, i, self) => number + 1 !== self[i + 1]) || 0;
+
+    const room = new Room({ name: "Room #" + (currentID + 1) });
+
+    state.rooms = state.rooms.concat(room);
+    events.rooms.forEach(cb => cb());
+
+    transitions.onAddRoom(room);
+
+    return true;
+  },
+
+  [ACTIONS.JOIN_ROOM]() {
+    console.log(arguments);
+  },
+
+  [ACTIONS.EXPAND_QRS_CODE]({ id }) {
+    transitions.onExpandQRSCode(id);
+    return true;
   }
 };
 
@@ -56,11 +75,13 @@ export function getState(field) {
 let currentAction;
 export function updateState(action = ACTIONS.Initial, ...args) {
   const values = Object.entries(state);
+  let allowRepeat = false;
 
   if (typeof handlers[action] !== "function") {
-    console.warn(`Undeclared action "${action}"`);
+    console.warn(`Undeclared handler "${action.toString()}"`);
+  } else {
+    allowRepeat = handlers[action](...args);
   }
-  handlers[action](...args);
 
   for (const [field, value] of values) {
     if (state[field] !== value && events[field]) {
@@ -69,4 +90,6 @@ export function updateState(action = ACTIONS.Initial, ...args) {
   }
 
   currentAction = action;
+
+  return !!allowRepeat;
 }
