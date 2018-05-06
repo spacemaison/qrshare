@@ -1,10 +1,6 @@
 @import url("./qrs-button.css");
-@import url("./qrs-crud-overlay.css");
 @import url("./qrs-rooms.css");
 @import url("./qrs-code.css");
-
-:root {
-}
 
 * {
   box-sizing: border-box;
@@ -13,6 +9,11 @@
   text-decoration: none;
   user-select: none;
   transition-timing-function: ease-in-out;
+}
+
+html,
+body {
+  height: 100vh;
 }
 
 body {

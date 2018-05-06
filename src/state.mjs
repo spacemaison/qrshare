@@ -5,9 +5,28 @@ import * as transitions from "./transitions.mjs";
 
 let state = {
   rooms: [
+    /*
     new Room({ name: "Foo", participants: ["a"] }),
     new Room({ name: "Bar" }),
+    new Room({
+      name: "Baz"
+    })*/
+    /*,
+    new Room({ name: "Foo", participants: ["a"] }),
+    new Room({ name: "Foo", participants: ["a"] }),
+    new Room({ name: "Bar" }),
+    new Room({ name: "Baz" }),
+    new Room({ name: "Bar" }),
+    new Room({ name: "Foo", participants: ["a"] }),
+    new Room({ name: "Bar" }),
+    new Room({ name: "Baz" }),
+    new Room({ name: "Foo", participants: ["a"] }),
+    new Room({ name: "Foo", participants: ["a"] }),
+    new Room({ name: "Bar" }),
+    new Room({ name: "Baz" }),
+    new Room({ name: "Bar" }),
     new Room({ name: "Baz" })
+    */
   ]
 };
 

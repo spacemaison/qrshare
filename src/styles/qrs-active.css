@@ -1,0 +1,7 @@
+qrs-active {
+  display: flex;
+  touch-action: pan-x;
+  flex-direction: column;
+  flex: 1;
+  background: red;
+}

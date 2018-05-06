@@ -1,4 +1,3 @@
-import { QRSCrudOverlay } from "./components/QRSCrudOverlay.mjs";
 import { QRSCode } from "./components/QRSCode.mjs";
 
 let $crudOverlay, $rooms;
@@ -8,16 +7,7 @@ export function onInitial() {
   $rooms = document.querySelector("qrs-rooms");
 }
 
-export function onExpandQRSCode(id) {
-  switch ($crudOverlay.state) {
-    default:
-      $crudOverlay.state = QRSCrudOverlay.STATES.SHOWING;
-      break;
-
-    case QRSCrudOverlay.STATES.SHOWING:
-      $crudOverlay.state = QRSCrudOverlay.STATES.HIDDEN;
-  }
-}
+export function onExpandQRSCode(id) {}
 
 export function onAddRoom(room) {
   $rooms.scrollTo(0, document.body.scrollHeight);

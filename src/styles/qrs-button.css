@@ -2,10 +2,19 @@ qrs-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 50px;
   height: 50px;
   transition: background 0.25s;
   background: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  margin: 4px;
+}
+
+qrs-button a {
+  color: black;
 }
 
 qrs-button[state="UP"],

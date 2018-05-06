@@ -19,6 +19,7 @@ export class QRSRooms extends HTMLElement {
 
     this.renderRoomItem = this.renderRoomItem.bind(this);
     this.onSetState = this.onSetState.bind(this);
+    this.setAttribute("touch-action", "pax-x");
 
     this.addEventListener(STATE_EVENTS.SET, this.onSetState);
     this.update(true);
@@ -57,7 +58,24 @@ export class QRSRooms extends HTMLElement {
     return html`
       <ul>${getStreamingState("rooms", this.renderRoomItem)}</ul>
 
+      ${this.renderCrudButtons(html)}
       ${this.renderNoRooms(html)}
+    `;
+  }
+
+  renderCrudButtons(html) {
+    const isExploding = this.state === EXPLODED;
+    const style = `
+      --opacity: ${isExploding ? 0 : 1};
+      --opacity-transition-time: ${isExploding ? 0.2 : 1.8}s;
+      --translateY: ${isExploding ? 100 : 0}vh;
+    `;
+
+    return html`
+      <div class="crud button-box" style="${style}">
+        <qrs-button action="join_room">\<\></qrs-button>
+        <qrs-button action="add_room">+</qrs-button>
+      </div>
     `;
   }
 
@@ -78,7 +96,7 @@ export class QRSRooms extends HTMLElement {
         `;
     }
     const headerStyle =
-      this.state === EXPLODED ? `--translateX: 100vw` : `--translateX: 0vh`;
+      this.state === EXPLODED ? `--translateX: 100vw` : `--translateX: 0vw`;
 
     return html`
       <li class="item">
