@@ -1,4 +1,4 @@
-import { mixin, Render, State } from "./mixins/mixin.mjs";
+import { mixin, Render, State, Pan, Press } from "./mixins/mixin.mjs";
 import { STATE_EVENTS } from "./mixins/State.mjs";
 import { QRSCode } from "./QRSCode.mjs";
 import { getState, getStreamingState } from "../state.mjs";
@@ -19,10 +19,40 @@ export class QRSRooms extends HTMLElement {
 
     this.renderRoomItem = this.renderRoomItem.bind(this);
     this.onSetState = this.onSetState.bind(this);
-    this.setAttribute("touch-action", "pax-x");
+    this.setAttribute("touch-action", "pan-y");
 
     this.addEventListener(STATE_EVENTS.SET, this.onSetState);
     this.update(true);
+    this.registerPressEvents();
+    this.registerPanEvents();
+  }
+
+  onPress(event) {
+    this.style.setProperty("--xOffsetDuration", `0.3s`);
+    this.style.setProperty("--xOffset", `0px`);
+  }
+
+  onPanStart(event) {
+    this.style.setProperty("--xOffsetDuration", `0s`);
+    this.__xOffset = parseInt(this.style.getPropertyValue('--xOffset')) || 0
+  }
+
+  onPan(event) {
+    if (this.state !== NORMAL) return;
+    this.__xOffset = Math.min(0, this.__xOffset + event.__delta);
+
+    this.style.setProperty("--xOffset", `${this.__xOffset}px`);
+  }
+
+  onPanStop(event) {
+    const { innerWidth } = window
+    const xOffset = Math.abs(parseInt(this.style.getPropertyValue('--xOffset')))
+    const offset = xOffset / innerWidth > 0.3
+        ? -(innerWidth - 80)
+        : 0
+
+    this.style.setProperty("--xOffsetDuration", `0.3s`);
+    this.style.setProperty("--xOffset", `${offset}px`);
   }
 
   onSetState(event) {
@@ -34,7 +64,9 @@ export class QRSRooms extends HTMLElement {
     }
   }
 
-  onSetQRSCodeState({ target, detail: { position, state } }) {
+  onSetQRSCodeState(event) {
+    const { target, detail } = event;
+    const { position, state } = detail;
     const { STATES } = QRSCode;
 
     this[_selectedPosition] = +position;
@@ -118,10 +150,7 @@ export class QRSRooms extends HTMLElement {
   renderNoRooms(html) {
     return html`
       <div class="intro">
-        <h1>
-          Welcome to QR Share
-        </h1>
-
+        <h1>Welcome to QR Share</h1>
         <p>
           QR Share lets you share files directly with other people. To get
           started just create a room and then have someone else join by scanning
@@ -145,4 +174,4 @@ export class QRSRooms extends HTMLElement {
   }
 }
 
-mixin(QRSRooms, Render, State);
+mixin(QRSRooms, Render, Press, Pan, State);

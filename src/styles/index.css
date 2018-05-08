@@ -1,5 +1,6 @@
 @import url("./qrs-button.css");
 @import url("./qrs-rooms.css");
+@import url("./qrs-active.css");
 @import url("./qrs-code.css");
 
 * {
@@ -11,25 +12,10 @@
   transition-timing-function: ease-in-out;
 }
 
-html,
-body {
-  height: 100vh;
-}
-
-body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-main {
-  display: flex;
-  flex: 1;
-}
-
-qrs-rooms {
-  overflow: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+body, main {
+  background-position: 0 0;
+  background-attachment: fixed;
+  background-repeat: repeat;
+  /* Background pattern from Toptal Subtle Patterns */
+  background-image: url(../../assets/circles-and-roundabouts.png);
 }

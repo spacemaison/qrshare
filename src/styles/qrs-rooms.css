@@ -1,9 +1,23 @@
 qrs-rooms {
+  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.6));
+  --blur: var(--qrs-rooms-blur, 2px);
+
+  --xOffset: 0px;
+  --xOffsetDuration: 0s;
+
   display: flex;
-  touch-action: pan-x;
+  touch-action: pan-y;
   flex-direction: column;
   flex: 1;
   padding: 8px;
+  transition: transform var(--xOffsetDuration);
+  transform: translateX(var(--xOffset));
+
+  min-height: 100vh;
+  background: var(--bg);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
 qrs-rooms .intro {
