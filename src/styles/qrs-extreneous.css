@@ -1,0 +1,8 @@
+qrs-extreneous {
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-100vw);
+  background: blue;
+}
