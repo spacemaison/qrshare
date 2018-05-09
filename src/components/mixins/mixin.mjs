@@ -17,32 +17,30 @@
 // mixin(HappyFace, Foo, Bar)
 // ```
 
-export * from "./Render.mjs";
-export * from "./Pan.mjs";
-export * from "./PassTo.mjs";
-export * from "./Press.mjs";
-export * from "./State.mjs";
+export * from './Render.mjs'
+export * from './Pan.mjs'
+export * from './PassTo.mjs'
+export * from './Press.mjs'
+export * from './State.mjs'
 
-const noop = () => {};
-
-export function mixin(Klass, ...Klasses) {
+export function mixin (Klass, ...Klasses) {
   Klasses = Klasses.map(Klass => [
     Klass,
     Object.getOwnPropertyNames(Klass.prototype)
-  ]);
+  ])
 
-  const properties = Klasses.reduce(defineProperties, {});
+  const properties = Klasses.reduce(defineProperties, {})
 
-  Object.defineProperties(Klass.prototype, properties);
+  Object.defineProperties(Klass.prototype, properties)
 
-  function defineProperties(props, [Klass, names]) {
+  function defineProperties (props, [Klass, names]) {
     for (const name of names) {
-      if (name === "constructor" || props[name]) {
-        continue;
+      if (name === 'constructor' || props[name]) {
+        continue
       }
 
-      props[name] = Object.getOwnPropertyDescriptor(Klass.prototype, name);
+      props[name] = Object.getOwnPropertyDescriptor(Klass.prototype, name)
     }
-    return props;
+    return props
   }
 }

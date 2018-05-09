@@ -1,46 +1,47 @@
-import { mixin, Press, Render, State } from "./mixins/mixin.mjs";
+/* globals HTMLElement */
+import { mixin, Press, Render, State } from './mixins/mixin.mjs'
 
-const DOWN = "DOWN";
-const UP = "UP";
-const PRESSED = "PRESSED";
+const DOWN = 'DOWN'
+const UP = 'UP'
+const PRESSED = 'PRESSED'
 
 export class QRSButton extends HTMLElement {
-  static get STATES() {
-    return { DOWN, UP, PRESSED, default: UP };
+  static get STATES () {
+    return { DOWN, UP, PRESSED, default: UP }
   }
 
-  constructor() {
-    super(...arguments);
+  constructor () {
+    super(...arguments)
 
-    this.setAttribute("touch-action", "auto");
-    this.registerPressEvents();
-    this.update(true);
+    this.setAttribute('touch-action', 'auto')
+    this.registerPressEvents()
+    this.update(true)
   }
 
-  onChangeState(event) {
+  onChangeState (event) {
     if (this.state !== PRESSED) {
-      event.preventDefault();
+      event.preventDefault()
     }
   }
 
-  onPressStart(event) {
-    this.state = DOWN;
+  onPressStart (event) {
+    this.state = DOWN
   }
 
-  onPressUp(event) {
-    this.state = UP;
+  onPressUp (event) {
+    this.state = UP
   }
 
-  onPress() {
-    this.state = PRESSED;
+  onPress () {
+    this.state = PRESSED
     setTimeout(() => {
-      this.setAttribute("state", UP);
-    }, 0);
+      this.setAttribute('state', UP)
+    }, 0)
   }
 
-  render(html) {
-    return html`<a href="#" touch-action="none">${this.textContent}</a>`;
+  render (html) {
+    return html`<a href="#" touch-action="none">${this.textContent}</a>`
   }
 }
 
-mixin(QRSButton, Render, State, Press);
+mixin(QRSButton, Render, State, Press)

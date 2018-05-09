@@ -2,6 +2,7 @@
 @import url("./qrs-rooms.css");
 @import url("./qrs-active.css");
 @import url("./qrs-code.css");
+@import url("./qrs-extreneous.css");
 
 * {
   box-sizing: border-box;

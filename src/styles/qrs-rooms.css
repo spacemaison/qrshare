@@ -5,6 +5,18 @@ qrs-rooms {
   --xOffset: 0px;
   --xOffsetDuration: 0s;
 
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  min-width: 100vw;
+  max-width: 100vw;
+  width: 100vw;
+
   display: flex;
   touch-action: pan-y;
   flex-direction: column;

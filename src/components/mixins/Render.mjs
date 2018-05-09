@@ -1,32 +1,33 @@
-import { html, render } from "../../dependencies/lit-html.mjs";
-const needsRender = Symbol("Render dirty flag");
+/* globals HTMLElement */
+import { html, render } from '../../dependencies/lit-html.mjs'
+const needsRender = Symbol('Render dirty flag')
 
-export class Render {
-  update(force) {
+export class Render extends HTMLElement {
+  update (force) {
     if (!this.render) {
-      return;
+      return
     }
 
     if (force) {
-      const rendered = this.render(html);
+      const rendered = this.render(html)
 
       if (rendered != null) {
-        render(rendered, this);
+        render(rendered, this)
       }
-      return;
+      return
     }
 
     if (!this[needsRender]) {
-      this[needsRender] = true;
+      this[needsRender] = true
 
       Promise.resolve().then(() => {
-        this[needsRender] = false;
-        const rendered = this.render(html);
+        this[needsRender] = false
+        const rendered = this.render(html)
 
         if (rendered != null) {
-          render(rendered, this);
+          render(rendered, this)
         }
-      });
+      })
     }
   }
 }

@@ -1,26 +1,27 @@
-import { mixin, Render } from "./mixins/mixin.mjs";
-import { getStreamingState } from "../state.mjs";
+/* globals HTMLElement */
+import { mixin, Render } from './mixins/mixin.mjs'
+import { getStreamingState } from '../state.mjs'
 
 export class QRSActive extends HTMLElement {
-  constructor() {
-    super(...arguments);
-    this.renderActiveItem = this.renderActiveItem.bind(this);
+  constructor () {
+    super(...arguments)
+    this.renderActiveItem = this.renderActiveItem.bind(this)
   }
 
-  render(html) {
+  render (html) {
     return html`
       <ul>
-        ${getStreamingState("active", this.renderActiveItem)}
+        ${getStreamingState('active', this.renderActiveItem)}
       </ul>
-    `;
+    `
   }
 
-  renderActiveItem(html) {
+  renderActiveItem (html) {
     return html`
       <li>
       </li>
-    `;
+    `
   }
 }
 
-mixin(QRSActive, Render);
+mixin(QRSActive, Render)
