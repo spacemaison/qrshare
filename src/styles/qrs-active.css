@@ -6,10 +6,17 @@ qrs-active {
   flex-direction: column;
   flex: 1;
   background: var(--bg);
+  padding-left: 100px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
-qrs-active > ul {
+qrs-active ul {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+}
+
+qrs-active ul qrs-media-item:nth-child(2n) {
+  align-self: flex-start;
 }

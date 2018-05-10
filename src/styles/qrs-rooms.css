@@ -87,8 +87,13 @@ qrs-rooms .item qrs-code {
   --translateY: 0;
   --translateX: 0;
 
-  transition: transform 0.33s, width 0.33s, height 0.33s;
-  transform: translateY(var(--translateY)) translateX(var(--translateX));
+  z-index: 1;
+  transition: transform, width, height;
+  transition-duration: 0.33s;
+  transform:
+    translateY(var(--translateY))
+    translateX(var(--translateX))
+    translateX(var(--roomOpenOffset));
 }
 
 qrs-rooms .item {
@@ -114,10 +119,15 @@ qrs-rooms .item h2 {
 }
 
 qrs-rooms .item h1 {
+  --h1-opacity-duration: 2s;
+
+  transition: opacity var(--h1-opacity-duration);
+  opacity: calc(1 - calc(12 * var(--xOffsetPercentage, 0)));
   font-size: 20px;
 }
 
 qrs-rooms .item h2 {
+  opacity: calc(0.8 - var(--xOffsetPercentage, 0));
   font-weight: 100;
   font-size: 16px;
   text-align: end;

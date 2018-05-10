@@ -1,6 +1,6 @@
 qrs-code {
-  --width: 64px;
-  --height: 64px;
+  --width: 50px;
+  --height: 50px;
 
   transition-property: width, height;
   transition-duration: 0.33s, 0.33s;
@@ -14,13 +14,6 @@ qrs-code {
   position: relative;
 }
 
-/*
-qrs-code[state="ACTIVE"] {
-  --width: 80vw;
-  --height: 80vh;
-}
-*/
-
 qrs-code > .shadow {
   --opacity: 0;
 
@@ -33,4 +26,5 @@ qrs-code > .shadow {
   box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.5);
   opacity: var(--opacity);
   transition: opacity 0.5s;
+  pointer-events: none;
 }

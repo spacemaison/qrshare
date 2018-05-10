@@ -1,5 +1,5 @@
 /* globals HTMLElement */
-import { mixin, Render, State } from './mixins/mixin.mjs'
+import { mixin, Render, State, Press } from './mixins/mixin.mjs'
 
 const ACTIVE = 'ACTIVE'
 const INACTIVE = 'INACTIVE'
@@ -12,21 +12,18 @@ export class QRSCode extends HTMLElement {
   constructor () {
     super(...arguments)
     this.setAttribute('touch-action', 'auto')
-    this.onPointerDown = this.onPointerDown.bind(this)
-    this.addEventListener('pointerdown', this.onPointerDown)
-    // this.update(true);
+    this.registerPressEvents()
   }
 
-  onPointerDown (event) {
-    if (!event.isPrimary) return
+  onPress (event) {
     this.state = this.state === ACTIVE ? INACTIVE : ACTIVE
   }
 
   render (html) {
     const isActive = this.state === ACTIVE
 
-    const width = isActive ? window.innerWidth - 20 : 64
-    const height = isActive ? window.innerHeight / 2 : 64
+    const width = isActive ? window.innerWidth - 20 : 50
+    const height = isActive ? window.innerHeight / 2 : 50
 
     this.style.setProperty('--width', `${width}px`)
     this.style.setProperty('--height', `${height}px`)
@@ -41,4 +38,4 @@ export class QRSCode extends HTMLElement {
   }
 }
 
-mixin(QRSCode, Render, State)
+mixin(QRSCode, Render, State, Press)

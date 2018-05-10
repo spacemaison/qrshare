@@ -30,6 +30,10 @@ export class QRSRooms extends HTMLElement {
   }
 
   onPress (event) {
+    if (event.target.matches('qrs-code')) {
+      return
+    }
+
     switch (this.state) {
       case OPEN: {
         this.state = NORMAL
@@ -38,15 +42,33 @@ export class QRSRooms extends HTMLElement {
   }
 
   onPanStart (event) {
+    if (this.state !== NORMAL) {
+      return
+    }
+
     this.style.setProperty('--xOffsetDuration', `0s`)
     this.__xOffset = parseInt(this.style.getPropertyValue('--xOffset')) || 0
   }
 
   onPan (event) {
-    if (this.state === EXPLODED) return
+    if (this.state !== NORMAL) return
 
-    this.__xOffset = Math.min(0, this.__xOffset + event.__delta)
-    this.style.setProperty('--xOffset', `${this.__xOffset}px`)
+    const { style } = this
+    const { __delta } = event
+    const { innerWidth } = window
+
+    const xOffsetCap = -(innerWidth * 0.75)
+    const xOffset = Math.max(xOffsetCap, Math.min(0, this.__xOffset + __delta))
+    const xOffsetPercentage = Math.abs(xOffset) / innerWidth
+    const roomOpenOffset =
+        xOffsetPercentage > 0.5 ? innerWidth - 75 : 0
+
+    this.__xOffset = xOffset
+    this.__xOffsetPercentage = xOffsetPercentage
+
+    style.setProperty('--xOffset', `${xOffset}px`)
+    style.setProperty('--xOffsetPercentage', xOffsetPercentage)
+    style.setProperty('--roomOpenOffset', `${roomOpenOffset}px`)
   }
 
   onPanStop (event) {
@@ -73,6 +95,11 @@ export class QRSRooms extends HTMLElement {
     const { position, state } = detail
     const { STATES } = QRSCode
 
+    if (target.action === 'open_room') {
+      event.preventDefault()
+      return
+    }
+
     this[_selectedPosition] = +position
 
     switch (state) {
@@ -91,10 +118,16 @@ export class QRSRooms extends HTMLElement {
   }
 
   render (html) {
-    const offset = this.state === OPEN ? -(window.innerWidth - 80) : 0
+    const { state, style } = this
+    const { innerWidth } = window
 
-    this.style.setProperty('--xOffsetDuration', `0.3s`)
-    this.style.setProperty('--xOffset', `${offset}px`)
+    const offset = state === OPEN ? -(innerWidth - 80) : 0
+    const roomOpenOffset = state === OPEN ? Math.abs(offset) + 5 : 0
+
+    style.setProperty('--roomOpenOffset', `${roomOpenOffset}px`)
+    style.setProperty('--xOffsetDuration', `0.3s`)
+    style.setProperty('--xOffset', `${offset}px`)
+    style.setProperty('--xOffsetPercentage', `${state === OPEN ? 1 : 0}`)
 
     return html`
       <ul>${getStreamingState('rooms', this.renderRoomItem)}</ul>
@@ -121,6 +154,7 @@ export class QRSRooms extends HTMLElement {
   }
 
   renderRoomItem (html, { name, participants, id }, position) {
+    const { state } = this
     const selectedPosition = +this[_selectedPosition]
     const relativePosition = QRSRooms.getRelativePosition(
       position,
@@ -128,7 +162,7 @@ export class QRSRooms extends HTMLElement {
     )
 
     let codeStyle = ''
-    if (this.state === EXPLODED) {
+    if (state === EXPLODED) {
       codeStyle = relativePosition
         ? `--translateY: ${relativePosition === 'before' ? -100 : 100}vh`
         : `
@@ -136,13 +170,17 @@ export class QRSRooms extends HTMLElement {
             --translateX: 10vw;
         `
     }
-    const headerStyle =
-      this.state === EXPLODED ? `--translateX: 100vw` : `--translateX: 0vw`
+    const headerStyle = state === EXPLODED
+      ? `--translateX: 100vw`
+      : `--translateX: 0vw`
+    const codeAction = state === OPEN
+      ? 'open_room'
+      : 'expand_qrs_code'
 
     return html`
       <li class="item">
         <qrs-code
-          action="expand_qrs_code"
+          action="${codeAction}"
           style="${codeStyle}"
           data-id="${id}"
           data-position="${position}">

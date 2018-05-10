@@ -23,10 +23,9 @@
 
 body, main {
   background-position: 0 0;
-  background-attachment: fixed;
   background-repeat: repeat;
   /* Background pattern from Toptal Subtle Patterns */
-  background-image: url(../../assets/pow-star.png);
+  background-image: url(../../assets/diagonal_striped_brick.png);
 }
 
 main {
