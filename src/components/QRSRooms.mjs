@@ -6,13 +6,14 @@ import { getStreamingState } from '../state.mjs'
 
 const EXPLODED = 'EXPLODED'
 const NORMAL = 'NORMAL'
+const OPEN = 'OPEN'
 
 const _selectedPosition = Symbol('Selected QR Code Position')
 const _topOffset = Symbol('Selected QR Code Top Offset')
 
 export class QRSRooms extends HTMLElement {
   static get STATES () {
-    return { EXPLODED, NORMAL, default: NORMAL }
+    return { EXPLODED, NORMAL, OPEN, default: NORMAL }
   }
 
   constructor () {
@@ -24,13 +25,16 @@ export class QRSRooms extends HTMLElement {
 
     this.addEventListener(STATE_EVENTS.SET, this.onSetState)
     this.update(true)
-    this.registerPressEvents()
     this.registerPanEvents()
+    this.registerPressEvents()
   }
 
   onPress (event) {
-    this.style.setProperty('--xOffsetDuration', `0.3s`)
-    this.style.setProperty('--xOffset', `0px`)
+    switch (this.state) {
+      case OPEN: {
+        this.state = NORMAL
+      }
+    }
   }
 
   onPanStart (event) {
@@ -39,21 +43,20 @@ export class QRSRooms extends HTMLElement {
   }
 
   onPan (event) {
-    if (this.state !== NORMAL) return
-    this.__xOffset = Math.min(0, this.__xOffset + event.__delta)
+    if (this.state === EXPLODED) return
 
+    this.__xOffset = Math.min(0, this.__xOffset + event.__delta)
     this.style.setProperty('--xOffset', `${this.__xOffset}px`)
   }
 
   onPanStop (event) {
     const { innerWidth } = window
     const xOffset = Math.abs(parseInt(this.style.getPropertyValue('--xOffset')))
-    const offset = xOffset / innerWidth > 0.3
-      ? -(innerWidth - 80)
-      : 0
+    const isOpen = xOffset / innerWidth > 0.3
 
-    this.style.setProperty('--xOffsetDuration', `0.3s`)
-    this.style.setProperty('--xOffset', `${offset}px`)
+    if (this.state !== EXPLODED) {
+      this.state = isOpen ? OPEN : NORMAL
+    }
   }
 
   onSetState (event) {
@@ -88,6 +91,11 @@ export class QRSRooms extends HTMLElement {
   }
 
   render (html) {
+    const offset = this.state === OPEN ? -(window.innerWidth - 80) : 0
+
+    this.style.setProperty('--xOffsetDuration', `0.3s`)
+    this.style.setProperty('--xOffset', `${offset}px`)
+
     return html`
       <ul>${getStreamingState('rooms', this.renderRoomItem)}</ul>
 
@@ -175,4 +183,4 @@ export class QRSRooms extends HTMLElement {
   }
 }
 
-mixin(QRSRooms, Render, Press, Pan, State)
+mixin(QRSRooms, Render, Pan, Press, State)

@@ -6,6 +6,8 @@ export class QRSActive extends HTMLElement {
   constructor () {
     super(...arguments)
     this.renderActiveItem = this.renderActiveItem.bind(this)
+    this.setAttribute('touch-action', 'pan-y')
+    this.update(true)
   }
 
   render (html) {
@@ -18,8 +20,7 @@ export class QRSActive extends HTMLElement {
 
   renderActiveItem (html) {
     return html`
-      <li>
-      </li>
+      <qrs-media-item></qrs-media-item>
     `
   }
 }

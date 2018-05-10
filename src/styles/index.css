@@ -1,8 +1,9 @@
-@import url("./qrs-button.css");
-@import url("./qrs-rooms.css");
 @import url("./qrs-active.css");
 @import url("./qrs-code.css");
+@import url("./qrs-button.css");
 @import url("./qrs-extreneous.css");
+@import url("./qrs-media-item.css");
+@import url("./qrs-rooms.css");
 
 * {
   box-sizing: border-box;
@@ -13,10 +14,22 @@
   transition-timing-function: ease-in-out;
 }
 
+:root {
+  --is-safari: 0;
+  --is-ios: 0;
+  --no-safari: 0;
+  --no-ios: 0;
+}
+
 body, main {
   background-position: 0 0;
   background-attachment: fixed;
   background-repeat: repeat;
   /* Background pattern from Toptal Subtle Patterns */
-  background-image: url(../../assets/circles-and-roundabouts.png);
+  background-image: url(../../assets/pow-star.png);
+}
+
+main {
+  display: block;
+  min-height: 100vh;
 }

@@ -1,0 +1,7 @@
+qrs-media-item {
+  display: flex;
+  height: 50px;
+  width: 100px;
+  background: white;
+  border: 1px solid black;
+}

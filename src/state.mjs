@@ -24,11 +24,12 @@ let state = {
     new Room({ name: 'Bar' }),
     new Room({ name: 'Baz' })
     */
-  ]
+  ],
+  active: new Array(100).fill({})
 }
 
 const handlers = {
-  [ACTIONS.INITIAL] (error) {
+  [ACTIONS.INITIAL] () {
     transitions.onInitial()
   },
 

@@ -1,11 +1,11 @@
 qrs-rooms {
-  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.6));
-  --blur: var(--qrs-rooms-blur, 2px);
+  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.85));
+  --blur: var(--qrs-rooms-blur, 4px);
 
   --xOffset: 0px;
   --xOffsetDuration: 0s;
 
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
@@ -32,11 +32,38 @@ qrs-rooms {
   box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
+qrs-rooms > ul:not(:empty) {
+  padding-top: 12px;
+}
+
+qrs-rooms > ul:not(:empty) ~ .intro {
+  opacity: 0;
+}
+
+:root:not(.is-ios) qrs-rooms > ul:not(:empty) ~ .intro {
+  display: none;
+}
+
 qrs-rooms .intro {
   flex: 1;
   flex-direction: column;
   text-align: center;
   align-items: center;
+
+  position: relative;
+
+  /* FIXME:
+    This is a hack to fix an odd layout bug on iOS. When the viewport doesn't
+    isn't tall enough to be scrolling, the "explode" animation for expanding
+    QR Codes jumps around. I have no idea why this is, we're working around it
+    for now.
+  */
+  top: calc(var(--is-ios) * 20px);
+  pointer-events: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 qrs-rooms .intro > h1 {
@@ -46,10 +73,6 @@ qrs-rooms .intro > h1 {
 
 qrs-rooms .intro > p {
   max-width: 300px;
-}
-
-qrs-rooms ul ~ .intro {
-  display: none;
 }
 
 qrs-rooms ul:empty ~ .intro {
@@ -64,7 +87,7 @@ qrs-rooms .item qrs-code {
   --translateY: 0;
   --translateX: 0;
 
-  transition: transform 0.5s, width 0.6s, height 0.6s;
+  transition: transform 0.33s, width 0.33s, height 0.33s;
   transform: translateY(var(--translateY)) translateX(var(--translateX));
 }
 
