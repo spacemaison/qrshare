@@ -23,8 +23,16 @@ export class QRSCode extends HTMLElement {
   }
 
   render (html) {
+    const isActive = this.state === ACTIVE
+
+    const width = isActive ? window.innerWidth - 20 : 64
+    const height = isActive ? window.innerHeight / 2 : 64
+
+    this.style.setProperty('--width', `${width}px`)
+    this.style.setProperty('--height', `${height}px`)
+
     const shadowStyle = `
-      --opacity: ${this.state === ACTIVE ? 1 : 0}
+      --opacity: ${isActive ? 1 : 0};
     `
 
     return html`
