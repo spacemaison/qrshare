@@ -19,6 +19,7 @@
   --is-ios: 0;
   --no-safari: 0;
   --no-ios: 0;
+  --has-blur: 0;
 }
 
 body, main {

@@ -1,7 +1,13 @@
-qrs-rooms {
-  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.85));
-  --blur: var(--qrs-rooms-blur, 4px);
+:root.has-blur qrs-rooms {
+  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.80));
+}
 
+:root:not(.has-blur) qrs-rooms {
+  --bg: var(--qrs-rooms-bg, rgba(255,255,255,0.95));
+}
+
+qrs-rooms {
+  --blur: var(--qrs-rooms-blur, 4px);
   --xOffset: 0px;
   --xOffsetDuration: 0s;
 
