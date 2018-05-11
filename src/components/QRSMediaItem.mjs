@@ -9,8 +9,10 @@ export class QRSMediaItem extends HTMLElement {
 
   render (html) {
     return html`
-      <h2>${this.title}</h2>
-      ${this.children}
+      <section>
+        <h2>${this.title}</h2>
+        ${this.children}
+      </section>
     `
   }
 

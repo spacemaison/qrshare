@@ -15,18 +15,23 @@
 }
 
 :root {
+  /* Environment flags overridden in app.mjs */
   --is-safari: 0;
   --is-ios: 0;
   --no-safari: 0;
   --no-ios: 0;
   --has-blur: 0;
+
+  /* Core style variables */
+  --root-box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  --root-rounding: 4px;
 }
 
 body, main {
   background-position: 0 0;
   background-repeat: repeat;
   /* Background pattern from Toptal Subtle Patterns */
-  background-image: url(../../assets/diagonal_striped_brick.png);
+  background-image: url(../../assets/pow-star.png);
 }
 
 main {

@@ -6,9 +6,8 @@ qrs-active {
   flex-direction: column;
   flex: 1;
   background: var(--bg);
-  padding-left: 100px;
-  padding-right: 10px;
   padding-top: 10px;
+  overflow-x: hidden;
 }
 
 qrs-active ul {
@@ -17,6 +16,29 @@ qrs-active ul {
   flex-direction: column;
 }
 
+qrs-active ul qrs-media-item {
+  width: 70%;
+}
+
 qrs-active ul qrs-media-item:nth-child(2n) {
   align-self: flex-start;
+  width: calc(70% + 92px);
+}
+
+qrs-active ul qrs-media-item:not(:nth-child(2n)) {
+  position: relative;
+  right: -8px;
+}
+
+qrs-active ul qrs-media-item:not(:nth-child(2n)) p {
+  padding-right: 40px;
+}
+
+qrs-active ul qrs-media-item:nth-child(2n) section {
+  padding-left: 112px;
+}
+
+qrs-active ul qrs-media-item:not(:nth-child(2n)) h2 {
+  text-align: end;
+  padding-right: 30px;
 }

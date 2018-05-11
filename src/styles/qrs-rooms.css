@@ -7,6 +7,7 @@
 }
 
 qrs-rooms {
+  --box-shadow: var(--qrs-rooms-box-shadow, var(--root-box-shadow));
   --blur: var(--qrs-rooms-blur, 4px);
   --xOffset: 0px;
   --xOffsetDuration: 0s;
@@ -35,7 +36,7 @@ qrs-rooms {
   background: var(--bg);
   -webkit-backdrop-filter: blur(var(--blur));
   backdrop-filter: blur(var(--blur));
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  box-shadow: var(--box-shadow);
 }
 
 qrs-rooms > ul:not(:empty) {
