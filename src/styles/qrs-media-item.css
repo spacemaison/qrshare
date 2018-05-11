@@ -1,5 +1,7 @@
 qrs-media-item {
   display: flex;
+  flex-direction: column;
+
   height: 50px;
   width: 80%;
   background: white;
@@ -9,4 +11,14 @@ qrs-media-item {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   margin-bottom: 12px;
+  min-height: 215px;
+}
+
+qrs-media-item[type="TEXT"] {
+  max-height: 400px;
+}
+
+qrs-media-item p {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -2,7 +2,7 @@ qrs-active {
   --bg: var(--qrs-active-bg-color, rgba(255,255,255,0.1));
 
   display: flex;
-  touch-action: pan-x;
+  touch-action: pan-y;
   flex-direction: column;
   flex: 1;
   background: var(--bg);

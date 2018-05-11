@@ -1,31 +1,27 @@
 import { html, directive } from './dependencies/lit-html.mjs'
-import { ACTIONS } from './constants.mjs'
-import { Room } from './models/Room.mjs'
+import { ACTIONS, LOREM_IPSUM } from './constants.mjs'
+import { Text, Room, Participant } from './models/index.mjs'
 import * as transitions from './transitions.mjs'
 
+class Selector {
+  constructor ({ field, selector }) {
+    this.field = field
+    this.selector = selector
+  }
+}
+
 let state = {
-  rooms: [
-    /*
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Baz' }),
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Baz' }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Baz' }),
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Foo', participants: ['a'] }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Baz' }),
-    new Room({ name: 'Bar' }),
-    new Room({ name: 'Baz' })
-    */
-  ],
-  active: new Array(100).fill({})
+  rooms: [ ...new Array(20) ].map((_, i) => new Room({
+    name: 'Room #' + (i + 1),
+    participants: [ ...new Array(Math.floor(Math.random() * 20)) ].map((_, i) => (
+      new Participant()
+    )),
+    media: [ ...new Array(10) ].map((_, i) => new Text({
+      title: 'Title ' + i,
+      content: LOREM_IPSUM
+    }))
+  })),
+  active: new Selector({ selector: 'rooms.0.media' })
 }
 
 const handlers = {
@@ -70,10 +66,10 @@ function onChange (field, onChange) {
 
 export const getStreamingState = (field, mapper) =>
   directive(part => {
-    part.setValue(bindState(state[field], mapper))
+    part.setValue(bindState(getState(field), mapper))
 
     onChange(field, () => {
-      part.setValue(bindState(state[field], mapper))
+      part.setValue(bindState(getState(field), mapper))
     })
   })
 
@@ -86,7 +82,24 @@ function bindState (state, cb) {
 }
 
 export function getState (field) {
-  return state[field]
+  const value = state[field]
+
+  if (!(value instanceof Selector)) {
+    return value
+  }
+
+  const fields = value.selector.split('.')
+  const initial = state[fields.shift()]
+  const selected = fields.reduce((selected, field) => {
+    if (selected == null) return selected
+    return selected[field]
+  }, initial)
+
+  if (selected == null) {
+    throw new Error(`Selector "${value.selector}" does not `)
+  }
+
+  return selected
 }
 
 let currentAction

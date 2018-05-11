@@ -1,5 +1,6 @@
-const TEXT = Symbol('TEXT MEDIA')
-const IMAGE = Symbol('IMAGE MEDIA')
+const TEXT = 'TEXT_MEDIA'
+const IMAGE = 'IMAGE_MEDIA'
+
 export const MEDIA_TYPES = Object.freeze({
   __proto__: null,
 
@@ -12,7 +13,8 @@ export class Text {
     return TEXT
   }
 
-  constructor ({ content = '' }) {
+  constructor ({ content = '', title = '' }) {
+    this.title = title
     this.content = content
   }
 }
