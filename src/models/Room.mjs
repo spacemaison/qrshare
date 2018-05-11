@@ -1,6 +1,6 @@
 // import { uuidv4 } from '../util.mjs'
 
-let _id = 0
+let _id = -1
 export class Room {
   constructor ({ name = '', media = [], participants = [], id = ++_id }) {
     this.id = id

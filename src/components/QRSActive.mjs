@@ -1,9 +1,16 @@
 /* globals HTMLElement */
-import { mixin, Render } from './mixins/mixin.mjs'
-import { getStreamingState } from '../state.mjs'
+import { mixin, Render, State } from './mixins/mixin.mjs'
+import { getState, getStreamingState } from '../state.mjs'
 import { MEDIA_TYPES } from '../models/index.mjs'
 
+const HIDDEN = 'HIDDEN'
+const SHOWING = 'SHOWING'
+
 export class QRSActive extends HTMLElement {
+  static get STATES () {
+    return { HIDDEN, SHOWING, default: SHOWING }
+  }
+
   constructor () {
     super(...arguments)
     this.renderActiveItem = this.renderActiveItem.bind(this)
@@ -12,9 +19,13 @@ export class QRSActive extends HTMLElement {
   }
 
   render (html, item) {
+    const { name } = getState('active')
+    this.style.setProperty('--showing', this.state === SHOWING ? 1 : 0)
+
     return html`
+      <h1>${name}</h1>
       <ul>
-        ${getStreamingState('active', this.renderActiveItem)}
+        ${getStreamingState('active.media', this.renderActiveItem)}
       </ul>
     `
   }
@@ -40,4 +51,4 @@ export class QRSActive extends HTMLElement {
   }
 }
 
-mixin(QRSActive, Render)
+mixin(QRSActive, Render, State)

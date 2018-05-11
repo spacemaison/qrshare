@@ -10,18 +10,21 @@ class Selector {
   }
 }
 
+const call = cb => cb()
+const randomArray = upperBound => [ ...new Array(Math.floor(Math.random() * upperBound)) ]
+
 let state = {
-  rooms: [ ...new Array(20) ].map((_, i) => new Room({
+  rooms: new Array(2).fill().map((_, i) => new Room({
     name: 'Room #' + (i + 1),
-    participants: [ ...new Array(Math.floor(Math.random() * 20)) ].map((_, i) => (
+    participants: randomArray(20).map((_, i) => (
       new Participant()
     )),
-    media: [ ...new Array(10) ].map((_, i) => new Text({
+    media: new Array(i + 1).fill().map((_, i) => new Text({
       title: 'Title ' + i,
       content: LOREM_IPSUM
     }))
   })),
-  active: new Selector({ selector: 'rooms.0.media' })
+  active: new Selector({ selector: 'rooms.0' })
 }
 
 const handlers = {
@@ -55,6 +58,15 @@ const handlers = {
   [ACTIONS.EXPAND_QRS_CODE] ({ id }) {
     transitions.onExpandQRSCode(id)
     return true
+  },
+
+  [ACTIONS.OPEN_ROOM] ({ id }) {
+    transitions.onOpenRoomStart(() => {
+      state.active = new Selector({ selector: 'rooms.' + id })
+      events.active.forEach(call)
+      transitions.onOpenRoomEnd()
+    })
+    return true
   }
 }
 
@@ -64,14 +76,17 @@ function onChange (field, onChange) {
   events[field].push(onChange)
 }
 
-export const getStreamingState = (field, mapper) =>
-  directive(part => {
+export const getStreamingState = (field, mapper) => {
+  field = field instanceof Selector ? field : new Selector({ selector: field })
+
+  return directive(part => {
     part.setValue(bindState(getState(field), mapper))
 
-    onChange(field, () => {
+    onChange(field.selector.split('.')[0], () => {
       part.setValue(bindState(getState(field), mapper))
     })
   })
+}
 
 function bindState (state, cb) {
   if (state[Symbol.iterator]) {
@@ -82,21 +97,26 @@ function bindState (state, cb) {
 }
 
 export function getState (field) {
-  const value = state[field]
+  const value = field instanceof Selector ? field : state[field]
 
   if (!(value instanceof Selector)) {
     return value
   }
 
   const fields = value.selector.split('.')
-  const initial = state[fields.shift()]
+  let initial = state[fields.shift()]
+  if (initial instanceof Selector) {
+    initial = getState(initial)
+  }
+
   const selected = fields.reduce((selected, field) => {
     if (selected == null) return selected
-    return selected[field]
+    const value = selected[field]
+    return value instanceof Selector ? getState(value) : value
   }, initial)
 
   if (selected == null) {
-    throw new Error(`Selector "${value.selector}" does not `)
+    throw new Error(`Selector "${value.selector}" does not compute Will Robinson`)
   }
 
   return selected

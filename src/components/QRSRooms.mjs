@@ -1,8 +1,8 @@
 /* globals HTMLElement */
 import { mixin, Render, State, Pan, Press } from './mixins/mixin.mjs'
-import { STATE_EVENTS } from './mixins/State.mjs'
 import { QRSCode } from './QRSCode.mjs'
 import { getStreamingState } from '../state.mjs'
+import { StateEvent, STATE_EVENTS } from './mixins/StateEvent.mjs'
 
 const EXPLODED = 'EXPLODED'
 const NORMAL = 'NORMAL'
@@ -97,6 +97,10 @@ export class QRSRooms extends HTMLElement {
 
     if (target.action === 'open_room') {
       event.preventDefault()
+      this.dispatchEvent(new StateEvent(STATE_EVENTS.CHANGE, {
+        action: 'open_room',
+        id: target.dataset.id
+      }))
       return
     }
 

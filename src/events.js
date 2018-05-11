@@ -1,4 +1,4 @@
-import { STATE_EVENTS } from './components/mixins/State.mjs'
+import { STATE_EVENTS } from './components/mixins/StateEvent.mjs'
 import { ACTIONS } from './constants.mjs'
 
 export function registerDOMEvents (updateState, document = window.document) {

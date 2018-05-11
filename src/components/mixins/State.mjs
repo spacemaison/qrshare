@@ -1,11 +1,6 @@
-/* globals HTMLElement, CustomEvent */
-const CHANGE = 'gettit-state-change'
-const SET = 'gettit-state-set'
+/* globals HTMLElement */
+import { STATE_EVENTS, StateEvent } from './StateEvent.mjs'
 
-export const STATE_EVENTS = Object.freeze({
-  CHANGE,
-  SET
-})
 const emptyObj = Object.create(null)
 
 export class State extends HTMLElement {
@@ -33,11 +28,7 @@ export class State extends HTMLElement {
     )
 
     // Dispatch set events
-    let setEvent = new CustomEvent(STATE_EVENTS.SET, {
-      bubbles: true,
-      cancelable: true,
-      detail
-    })
+    let setEvent = new StateEvent(STATE_EVENTS.SET, detail)
     this.onSetState && this.onSetState(setEvent)
     if (setEvent.defaultPrevented) {
       return
@@ -54,12 +45,7 @@ export class State extends HTMLElement {
     this.update && this.update()
 
     // Dispatch change event
-    let changeEvent = new CustomEvent(STATE_EVENTS.CHANGE, {
-      bubbles: true,
-      cancelable: true,
-      detail
-    })
-
+    let changeEvent = new StateEvent(STATE_EVENTS.CHANGE, detail)
     this.onChangeState && this.onChangeState(changeEvent)
     if (changeEvent.defaultPrevented) {
       return

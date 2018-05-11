@@ -1,6 +1,10 @@
 qrs-active {
-  --bg: var(--qrs-active-bg-color, rgba(255,255,255,0.1));
+  --showing: 1;
+  --showingTime: 0.33s;
+  --headerOpacity: calc(var(--showing));
+  --itemOffset: calc(100 * (1 - var(--showing)));
 
+  --bg: var(--qrs-active-bg-color, rgba(255,255,255,0.1));
   display: flex;
   touch-action: pan-y;
   flex-direction: column;
@@ -8,6 +12,17 @@ qrs-active {
   background: var(--bg);
   padding-top: 10px;
   overflow-x: hidden;
+}
+
+qrs-active > h1 {
+  text-align: end;
+  padding: 12px;
+  padding-right: 20px;
+  text-decoration: underline;
+  /*
+  transition: opacity calc(0.5 * var(--showingTime));
+  opacity: var(--headerOpacity);
+  */
 }
 
 qrs-active ul {
@@ -18,16 +33,19 @@ qrs-active ul {
 
 qrs-active ul qrs-media-item {
   width: 70%;
+  transition: transform var(--showingTime);
 }
 
 qrs-active ul qrs-media-item:nth-child(2n) {
   align-self: flex-start;
   width: calc(70% + 92px);
+  transform: translateX(calc(-1vw * var(--itemOffset)));
 }
 
 qrs-active ul qrs-media-item:not(:nth-child(2n)) {
   position: relative;
   right: -8px;
+  transform: translateX(calc(1vw * var(--itemOffset)));
 }
 
 qrs-active ul qrs-media-item:not(:nth-child(2n)) p {
