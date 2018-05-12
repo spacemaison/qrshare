@@ -1,0 +1,16 @@
+qrs-options {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 10px;
+}
+
+qrs-options .button-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+qrs-options .button-box qrs-button {
+  min-width: 100px;
+}

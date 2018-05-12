@@ -1,8 +1,42 @@
+main {
+  --extreneous-showing: 0;
+}
+
+main.extreneous-showing {
+  --extreneous-showing: 1;
+}
+
+:root.has-blur qrs-extreneous {
+  --bg: var(--qrs-extreneous-bg, rgba(255,255,255,0.80));
+}
+
+:root:not(.has-blur) qrs-extreneous {
+  --bg: var(--qrs-extreneous-bg, rgba(255,255,255,0.95));
+}
+
 qrs-extreneous {
+  --extreneous-showing: var(var(--extreneous-showing), 0);
+  --blur: var(--qrs-extreneous-blur, 4px);
+
+  position: absolute;
+  top: 0;
   display: flex;
   min-height: 100vh;
   min-width: 100vw;
   max-width: 100vw;
-  transform: translateX(-100vw);
-  background: blue;
+  transition: transform 0.3s;
+  transform: translateX(calc(-100vw * (1 - var(--extreneous-showing))));
+  overflow: hidden;
+
+  background: var(--bg);
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+}
+
+main.extreneous-showing qrs-rooms {
+  --extreneous-showing: var(var(--extreneous-showing), 0);
+
+  transition: transform 0.3s;
+  transform: translateX(calc(100vw * var(--extreneous-showing)));
+  box-shadow: unset;
 }

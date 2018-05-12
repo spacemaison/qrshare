@@ -1,15 +1,19 @@
+const ACCEPT_OPTIONS = Symbol('ACCEPT_OPTIONS')
 const ADD_ROOM = Symbol('ADD_ROOM')
 const INITIAL = Symbol('INITIAL')
 const EXPAND_QRS_CODE = Symbol('EXPAND_QRS_CODE')
 const OPEN_ROOM = Symbol('OPEN_ROOM')
 const JOIN_ROOM = Symbol('JOIN_ROOM')
+const SHOW_EXTRENEOUS = Symbol('SHOW_EXTRENEOUS')
 
 export const ACTIONS = Object.freeze({
   INITIAL,
+  ACCEPT_OPTIONS,
   ADD_ROOM,
   EXPAND_QRS_CODE,
   OPEN_ROOM,
-  JOIN_ROOM
+  JOIN_ROOM,
+  SHOW_EXTRENEOUS
 })
 
 export const LOREM_IPSUM = `

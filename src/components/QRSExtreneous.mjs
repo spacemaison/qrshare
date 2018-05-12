@@ -9,8 +9,8 @@ export class QRSExtreneous extends HTMLElement {
 
   render (html) {
     return html`
-      <div class="code-reader"></div>
       <qrs-options></qrs-options>
+      <div class="code-reader"></div>
     `
   }
 }

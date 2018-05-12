@@ -2,11 +2,12 @@ import { QRSActive } from './components/QRSActive.mjs'
 import { QRSCode } from './components/QRSCode.mjs'
 import { QRSRooms } from './components/QRSRooms.mjs'
 
-let $active, $rooms
+let $active, $main, $rooms
 
 export function onInitial () {
   $active = document.querySelector('qrs-active')
   $rooms = document.querySelector('qrs-rooms')
+  $main = document.querySelector('main')
 }
 
 export function onExpandQRSCode (id) {}
@@ -31,4 +32,12 @@ export function onOpenRoomStart (finished) {
 
 export function onOpenRoomEnd () {
   $active.state = QRSActive.STATES.SHOWING
+}
+
+export function onShowExtreneous () {
+  $main.classList.add('extreneous-showing')
+}
+
+export function onAcceptOptions () {
+  $main.classList.remove('extreneous-showing')
 }

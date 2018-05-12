@@ -151,7 +151,7 @@ export class QRSRooms extends HTMLElement {
 
     return html`
       <div class="crud button-box" style="${style}">
-        <qrs-button action="join_room">\<\></qrs-button>
+        <qrs-button action="show_extreneous">\<\></qrs-button>
         <qrs-button action="add_room">+</qrs-button>
       </div>
     `

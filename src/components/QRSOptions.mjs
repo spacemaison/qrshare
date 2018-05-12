@@ -9,9 +9,13 @@ export class QRSOptions extends HTMLElement {
 
   render (html) {
     return html`
-      <div class="colors">
-        
+      <div class="button-box">
+        <qrs-button action="reset_options">Reset</qrs-button>
+        <qrs-button action="accept_options">Accept</qrs-button>
       </div>
+
+      <section class="themes">
+      </section>
     `
   }
 }

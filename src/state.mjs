@@ -51,8 +51,12 @@ const handlers = {
     return true
   },
 
-  [ACTIONS.JOIN_ROOM] () {
-    console.log(arguments)
+  [ACTIONS.ACCEPT_OPTIONS] () {
+    transitions.onAcceptOptions()
+  },
+
+  [ACTIONS.SHOW_EXTRENEOUS] () {
+    transitions.onShowExtreneous()
   },
 
   [ACTIONS.EXPAND_QRS_CODE] ({ id }) {
