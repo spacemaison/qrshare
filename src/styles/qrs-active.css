@@ -4,7 +4,7 @@ qrs-active {
   --headerOpacity: calc(var(--showing));
   --itemOffset: calc(100 * (1 - var(--showing)));
 
-  --bg: var(--qrs-active-bg-color, rgba(255,255,255,0.1));
+  --bg: var(--qrs-active-bg);
   display: flex;
   touch-action: pan-y;
   flex-direction: column;
@@ -12,6 +12,7 @@ qrs-active {
   background: var(--bg);
   padding-top: 10px;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 qrs-active > h1 {
@@ -19,10 +20,6 @@ qrs-active > h1 {
   padding: 12px;
   padding-right: 20px;
   text-decoration: underline;
-  /*
-  transition: opacity calc(0.5 * var(--showingTime));
-  opacity: var(--headerOpacity);
-  */
 }
 
 qrs-active ul {

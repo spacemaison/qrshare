@@ -1,7 +1,8 @@
 import { html, directive } from './dependencies/lit-html.mjs'
-import { ACTIONS, LOREM_IPSUM } from './constants.mjs'
+import { ACTIONS, THEMES, LOREM_IPSUM } from './constants.mjs'
 import { Text, Room, Participant } from './models/index.mjs'
 import * as transitions from './transitions.mjs'
+import * as app from './app.mjs'
 
 class Selector {
   constructor ({ field, selector }) {
@@ -14,6 +15,9 @@ const call = cb => cb()
 const randomArray = upperBound => [ ...new Array(Math.floor(Math.random() * upperBound)) ]
 
 let state = {
+  theme: 'NEWSPAPER',
+  theme_trying: 'NEWSPAPER',
+
   rooms: new Array(2).fill().map((_, i) => new Room({
     name: 'Room #' + (i + 1),
     participants: randomArray(20).map((_, i) => (
@@ -52,6 +56,7 @@ const handlers = {
   },
 
   [ACTIONS.ACCEPT_OPTIONS] () {
+    state.theme = state.theme_trying
     transitions.onAcceptOptions()
   },
 
@@ -71,6 +76,17 @@ const handlers = {
       transitions.onOpenRoomEnd()
     })
     return true
+  },
+
+  [ACTIONS.THEME_TRY] ({ id }) {
+    state.theme_trying = id
+    transitions.onThemeSelect(id)
+    app.applyTheme(id)
+  },
+
+  [ACTIONS.THEME_RESET] () {
+    transitions.onThemeSelect(state.theme)
+    app.applyTheme(state.theme)
   }
 }
 
@@ -139,7 +155,7 @@ export function updateState (action = ACTIONS.Initial, ...args) {
 
   for (const [field, value] of values) {
     if (state[field] !== value && events[field]) {
-      events[field].forEach(cb => cb())
+      events[field].forEach(call)
     }
   }
 

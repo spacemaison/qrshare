@@ -1,13 +1,17 @@
+import * as app from './app.mjs'
 import { QRSActive } from './components/QRSActive.mjs'
 import { QRSCode } from './components/QRSCode.mjs'
 import { QRSRooms } from './components/QRSRooms.mjs'
 
-let $active, $main, $rooms
+let $active, $main, $rooms, $themesSelectors
 
 export function onInitial () {
   $active = document.querySelector('qrs-active')
   $rooms = document.querySelector('qrs-rooms')
   $main = document.querySelector('main')
+  $themesSelectors = document.querySelectorAll('qrs-options-theme')
+
+  app.applyTheme('NEWSPAPER')
 }
 
 export function onExpandQRSCode (id) {}
@@ -40,4 +44,14 @@ export function onShowExtreneous () {
 
 export function onAcceptOptions () {
   $main.classList.remove('extreneous-showing')
+}
+
+export function onThemeSelect (id) {
+  for (const $theme of $themesSelectors) {
+    if ($theme.dataset.id === id) {
+      $theme.state = 'SELECTED'
+    } else {
+      $theme.state = 'UNSELECTED'
+    }
+  }
 }

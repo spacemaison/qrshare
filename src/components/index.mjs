@@ -3,6 +3,7 @@ import { QRSButton } from './QRSButton.mjs'
 import { QRSCode } from './QRSCode.mjs'
 import { QRSExtreneous } from './QRSExtreneous.mjs'
 import { QRSOptions } from './QRSOptions.mjs'
+import { QRSOptionsTheme } from './QRSOptionsTheme.mjs'
 import { QRSRooms } from './QRSRooms.mjs'
 import { QRSMediaItem } from './QRSMediaItem.mjs'
 
@@ -13,6 +14,7 @@ export {
   QRSExtreneous,
   QRSMediaItem,
   QRSOptions,
+  QRSOptionsTheme,
   QRSRooms
 }
 
@@ -25,5 +27,6 @@ export default function registerComponents (
   customElements.define('qrs-extreneous', QRSExtreneous)
   customElements.define('qrs-media-item', QRSMediaItem)
   customElements.define('qrs-options', QRSOptions)
+  customElements.define('qrs-options-theme', QRSOptionsTheme)
   customElements.define('qrs-rooms', QRSRooms)
 }

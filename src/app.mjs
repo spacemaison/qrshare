@@ -1,7 +1,8 @@
 import registerComponents from './components/index.mjs'
 import { updateState } from './state.mjs'
-import { ACTIONS } from './constants.mjs'
+import { ACTIONS, THEMES } from './constants.mjs'
 import { registerDOMEvents } from './events.js'
+
 
 async function bootstrap () {
   registerComponents()
@@ -17,6 +18,14 @@ async function bootstrap () {
 bootstrap().catch(error => {
   console.error(error.stack)
 })
+
+export function applyTheme (id) {
+  const root = document.documentElement
+
+  for (const prop in THEMES[id]) {
+    root.style.setProperty('--' + prop, THEMES[id][prop])
+  }
+}
 
 function addFeatureClasses () {
   const css = (CSS && CSS.supports) || (() => false)
@@ -51,4 +60,5 @@ function addUserAgentClasses () {
   }
 }
 
+window.applyTheme = applyTheme
 window.updateState = updateState

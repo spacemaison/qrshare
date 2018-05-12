@@ -5,6 +5,9 @@ const EXPAND_QRS_CODE = Symbol('EXPAND_QRS_CODE')
 const OPEN_ROOM = Symbol('OPEN_ROOM')
 const JOIN_ROOM = Symbol('JOIN_ROOM')
 const SHOW_EXTRENEOUS = Symbol('SHOW_EXTRENEOUS')
+const THEME_ACCEPT = Symbol('THEME_ACCEPT')
+const THEME_RESET = Symbol('THEME_RESET')
+const THEME_TRY = Symbol('THEME_TRY')
 
 export const ACTIONS = Object.freeze({
   INITIAL,
@@ -13,7 +16,77 @@ export const ACTIONS = Object.freeze({
   EXPAND_QRS_CODE,
   OPEN_ROOM,
   JOIN_ROOM,
-  SHOW_EXTRENEOUS
+  SHOW_EXTRENEOUS,
+  THEME_ACCEPT,
+  THEME_RESET,
+  THEME_TRY
+})
+
+const THEME_DEFAULTS = Object.freeze({
+  __proto__: null,
+  'root-rounding': '4px',
+  'root-flourish': 'red',
+  'root-flourish-contrast': 'white',
+  'root-fg': 'black',
+  'root-bg': 'white'
+})
+
+export const THEMES = Object.freeze({
+  'BUMBLEBEE': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'root-flourish': 'brown',
+    'root-rounding': '0',
+    'qrs-active-bg': 'rgba(255,0,0,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.40)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.8)',
+    'bg-image-url': 'url(../../assets/halftone_yellow.png)'
+  }),
+
+  'CIRCLES': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'qrs-active-bg': 'rgba(255,0,0,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.80)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.95)',
+    'bg-image-url': 'url(../../assets/circles_and_roundabouts.png)'
+  }),
+
+  'DARK WOOL': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'bg-image-url': 'url(../../assets/zig_zag_wool.png)',
+    'qrs-active-bg': 'rgba(255,255,255,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.80)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.95)'
+  }),
+
+  'NEWSPAPER': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'qrs-active-bg': 'rgba(255,255,255,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.80)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.95)',
+    'bg-image-url': 'url(../../assets/diagonal_striped_brick.png)'
+  }),
+
+  'WOODY': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'qrs-active-bg': 'rgba(255,255,255,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.80)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.95)',
+    'bg-image-url': 'url(../../assets/wood.png)'
+  }),
+
+  'POW': Object.freeze({
+    __proto__: THEME_DEFAULTS,
+
+    'qrs-active-bg': 'rgba(255,255,255,0.1)',
+    'qrs-rooms-bg-blurred': 'rgba(255,255,255,0.80)',
+    'qrs-rooms-bg': 'rgba(255,255,255,0.95)',
+    'bg-image-url': 'url(../../assets/pow_star.png)'
+  })
 })
 
 export const LOREM_IPSUM = `
