@@ -1,5 +1,5 @@
 import { html, directive } from './dependencies/lit-html.mjs'
-import { ACTIONS, THEMES, LOREM_IPSUM } from './constants.mjs'
+import { ACTIONS, LOREM_IPSUM } from './constants.mjs'
 import { Text, Room, Participant } from './models/index.mjs'
 import * as transitions from './transitions.mjs'
 import * as app from './app.mjs'
@@ -23,7 +23,7 @@ let state = {
     participants: randomArray(20).map((_, i) => (
       new Participant()
     )),
-    media: new Array(i + 1).fill().map((_, i) => new Text({
+    media: new Array(5).fill().map((_, i) => new Text({
       title: 'Title ' + i,
       content: LOREM_IPSUM
     }))

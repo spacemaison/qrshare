@@ -42,5 +42,4 @@ export class QRSOptions extends HTMLElement {
   }
 }
 
-
 mixin(QRSOptions, Render)

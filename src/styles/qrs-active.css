@@ -3,8 +3,9 @@ qrs-active {
   --showingTime: 0.33s;
   --headerOpacity: calc(var(--showing));
   --itemOffset: calc(100 * (1 - var(--showing)));
-
   --bg: var(--qrs-active-bg);
+  --yOffset: 0%;
+
   display: flex;
   touch-action: pan-y;
   flex-direction: column;
@@ -13,13 +14,13 @@ qrs-active {
   padding-top: 10px;
   overflow-x: hidden;
   min-height: 100vh;
+  transform: translateY(--yOffset);
 }
 
 qrs-active > h1 {
-  text-align: end;
   padding: 12px;
-  padding-right: 20px;
-  text-decoration: underline;
+  padding-left: 100px;
+  font-size: 28px;
 }
 
 qrs-active ul {

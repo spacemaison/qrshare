@@ -28,7 +28,10 @@ const THEME_DEFAULTS = Object.freeze({
   'root-flourish': 'red',
   'root-flourish-contrast': 'white',
   'root-fg': 'black',
-  'root-bg': 'white'
+  'root-bg': 'white',
+  'root-header-font': '"Josefin Sans", sans-serif',
+  'root-header-secondary-font': '"Josefin Sans", sans-serif',
+  'root-body-font': ''
 })
 
 export const THEMES = Object.freeze({
